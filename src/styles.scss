@@ -1,1 +1,79 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+
+$my-typography: mat.define-typography-config($font-family: "'Tilt Neon', cursive");
+    
+@include mat.typography-hierarchy($my-typography);
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+/* For use in src/lib/core/theming/_palette.scss */
+$custom-indigo: (
+    50 : #e7e4ee,
+    100 : #c2bbd6,
+    200 : #9a8eba,
+    300 : #72609e,
+    400 : #533e8a,
+    500 : #351c75,
+    600 : #30196d,
+    700 : #281462,
+    800 : #221158,
+    900 : #160945,
+    A100 : #917cff,
+    A200 : #6649ff,
+    A400 : #3b16ff,
+    A700 : #2800fc,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+
+
+$kanban-primary: mat.define-palette($custom-indigo);
+$kanban-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$kanban-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$kanban-theme: mat.define-dark-theme((
+  color: (
+    primary: $kanban-primary,
+    accent: $kanban-accent,
+    warn: $kanban-warn,
+  ),
+  typography: $my-typography
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+body{@include mat.all-component-themes($kanban-theme);}
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Tilt Neon', cursive;}
